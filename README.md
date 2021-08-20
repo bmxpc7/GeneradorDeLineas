@@ -1,4 +1,4 @@
-# GeneradorDeLineas
+# Generador De Lineas
 Esta generador, puede generar numeros telefonicos dependiendo de algunas regiones en México.
 
 ## Features
