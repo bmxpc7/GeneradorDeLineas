@@ -1,26 +1,16 @@
-function myFunction() {
-  const region = document.getElementById("region").value;
-  const iccidInicial = document.getElementById("numerosIccid").value;
-  const numerosGenerar = document.getElementById("numerosGenerar").value;
-  generarTabla(generarNumeros(region, iccidInicial, numerosGenerar), iccidInicial)
-}
-
-function myFunctionBorrar() {
-  document.getElementById("region").value;
-  document.getElementById("numerosIccid").value = "";
-  document.getElementById("numerosGenerar").value = "";
-  document.getElementById("listaNumeros").value = "";
-  document.getElementById("listaIccid").value = "";
-  var padre = document.getElementById("tblNum");
-  for (var i = 0; i < padre.children.length; i++) {
-    var hijo = padre.children[i]
-    padre.remove(hijo)
-  }
-  var padre2 = document.getElementById("tblIccid");
-  for (var j = 0; j < padre2.children.length; j++) {
-    var hijo = padre.children[j]
-    padre2.remove(hijo)
-  }
+var fs = require('fs');
+var readline = require('readline');
+var numGen;
+var iccidInit;
+const generarFolio = () => {
+  let ruta = ["R4-", "R5-", "R6-"];
+  let tipo = ["T", "P", "A"]
+  let num1 = Math.floor(Math.random() * 9)
+  let letra = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "K", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]
+  let num2 = Math.floor(Math.random() * 99999)
+  let rutaAleatoria = Math.floor(Math.random() * 3)
+  let letraAleatoria = Math.floor(Math.random() * 26)
+  return ruta[rutaAleatoria] + tipo[rutaAleatoria] + num1 + letra[letraAleatoria] + num2
 }
 
 const generarNumeros = (folio, inicialFolio, numerosGenerar) => {
@@ -38,10 +28,12 @@ const generarNumeros = (folio, inicialFolio, numerosGenerar) => {
       if (numeroActual.length === 10 && iccidActual.length === 19) {
         contador++;
         listaNumeros.push(numeroActual)
+        listaNumeros.push(iccidActual)
       } else {
         i--
       }
     }
+    console.log(contador);
     return listaNumeros
   }
   if (folio[1] === "5") {
@@ -55,10 +47,12 @@ const generarNumeros = (folio, inicialFolio, numerosGenerar) => {
       if (numeroActual.length === 10 && iccidActual.length === 19) {
         contador++;
         listaNumeros.push(numeroActual)
+        listaNumeros.push(iccidActual)
       } else {
         j--
       }
     }
+    console.log(contador);
     return listaNumeros
   }
   if (folio[1] === "6") {
@@ -72,37 +66,42 @@ const generarNumeros = (folio, inicialFolio, numerosGenerar) => {
       if (numeroActual.length === 10 && iccidActual.length === 19) {
         contador++;
         listaNumeros.push(numeroActual)
+        listaNumeros.push(iccidActual)
       } else {
         k--
       }
     }
+    console.log(contador);
     return listaNumeros
   }
 
 }
 
-const generarTabla = (datos, inicialIccid) => {
-  let listaInicio = '<ul class="list-group" id="tblNum" style="width: 18rem;">';
-  let lista = 'Numeros Telefonicos';
-  let listaFin = '</ul>';
-  for (var i = 0; i < datos.length; i++) {
-    lista += '<li class="list-group-item">' + datos[i] + '</li>';
-  }
-  let datosICCID = [];
-  for (let j = 0; j < datos.length; j++) {
-    iccidActual = inicialIccid + Math.floor(Math.random() * 99999999999999999)
-    if (iccidActual.length === 19) {
-      datosICCID.push(iccidActual)
-    } else {
-      j--
+const generarArchivo = (datos, nombre) => {
+  var stream = fs.createWriteStream(nombre + ".txt");
+  stream.once('open', function (fd) {
+    for (let index = 0; index < datos.length; index++) {
+      if (index % 2 === 0) {
+        stream.write(datos[index] + "\t");
+      } else {
+        stream.write(datos[index] + "\n");
+      }
     }
-  }
-  let listaInicioICCID = '<ul class="list-group" id="tblIccid" style="width: 18rem;">';
-  let listaICCID = 'ICCID';
-  let listaFinICCID = '</ul>';
-  for (var k = 0; k < datosICCID.length; k++) {
-    listaICCID += '<li class="list-group-item">' + datosICCID[k] + '</li>';
-  }
-  document.getElementById("listaNumeros").innerHTML = listaInicio + lista + listaFin;
-  document.getElementById("listaIccid").innerHTML = listaInicioICCID + listaICCID + listaFinICCID;
+    stream.end();
+  });
+  console.log("El archivo fue creado correctamente");
+}
+const folioFinal = generarFolio()
+
+var rl = readline.createInterface({
+  input: process.stdin,
+  output: process.stdout
+
+});
+
+rl.question("¿Cuántos números desea generar?", function (answer) {
+  numGen = answer
+  generarArchivo(generarNumeros(folioFinal, "89", answer), folioFinal)
+  rl.close();
+});
 }
