@@ -1,4 +1,5 @@
 var fs = require('fs');
+var readline = require('readline');
 const generarFolio = () => {
   let ruta = ["R4-", "R5-", "R6-"];
   let tipo = ["T", "P", "A"]
@@ -22,10 +23,31 @@ const generarNumeros = (folio, inicialFolio, numerosGenerar) => {
       ladaAleatoria = Math.floor(Math.random() * 2)
       numeroActual = lada[ladaAleatoria] + Math.floor(Math.random() * 9999999);
       iccidActual = inicialFolio + Math.floor(Math.random() * 99999999999999999)
-      if (numeroActual.length === 10 && iccidActual.length ===19) {
+      let TAC
+      let FAC
+      let SNR
+      let W
+      let imei
+      do {
+        do {
+          TAC = Math.floor(Math.random() * 999999)
+        } while (TAC.length === 6);
+        do {
+          FAC = Math.floor(Math.random() * 99)
+        } while (FAC.length === 2);
+        do {
+          SNR = Math.floor(Math.random() * 999999)
+        } while (SNR.length === 6);
+        do {
+          W = Math.floor(Math.random() * 9)
+        } while (W.length === 1);
+        imei = TAC.toString() + FAC.toString() + SNR.toString() + W.toString()
+      } while (imei.length !== 15);
+      if (numeroActual.length === 10 && iccidActual.length === 19) {
         contador++;
         listaNumeros.push(numeroActual)
         listaNumeros.push(iccidActual)
+        listaNumeros.push(imei)
       } else {
         i--
       }
@@ -41,10 +63,31 @@ const generarNumeros = (folio, inicialFolio, numerosGenerar) => {
       ladaAleatoria = Math.floor(Math.random() * 2)
       numeroActual = lada[ladaAleatoria] + Math.floor(Math.random() * 9999999);
       iccidActual = inicialFolio + Math.floor(Math.random() * 99999999999999999)
-      if (numeroActual.length === 10 && iccidActual.length ===19) {
+      let TAC
+      let FAC
+      let SNR
+      let W
+      let imei
+      do {
+        do {
+          TAC = Math.floor(Math.random() * 999999)
+        } while (TAC.length === 6);
+        do {
+          FAC = Math.floor(Math.random() * 99)
+        } while (FAC.length === 2);
+        do {
+          SNR = Math.floor(Math.random() * 999999)
+        } while (SNR.length === 6);
+        do {
+          W = Math.floor(Math.random() * 9)
+        } while (W.length === 1);
+        imei = TAC.toString() + FAC.toString() + SNR.toString() + W.toString()
+      } while (imei.length !== 15);
+      if (numeroActual.length === 10 && iccidActual.length === 19) {
         contador++;
         listaNumeros.push(numeroActual)
         listaNumeros.push(iccidActual)
+        listaNumeros.push(imei)
       } else {
         j--
       }
@@ -60,10 +103,31 @@ const generarNumeros = (folio, inicialFolio, numerosGenerar) => {
       ladaAleatoria = Math.floor(Math.random() * 3)
       numeroActual = lada[ladaAleatoria] + Math.floor(Math.random() * 9999999)
       iccidActual = inicialFolio + Math.floor(Math.random() * 99999999999999999)
-      if (numeroActual.length === 10 && iccidActual.length ===19) {
+      let TAC
+      let FAC
+      let SNR
+      let W
+      let imei
+      do {
+        do {
+          TAC = Math.floor(Math.random() * 999999)
+        } while (TAC.length === 6);
+        do {
+          FAC = Math.floor(Math.random() * 99)
+        } while (FAC.length === 2);
+        do {
+          SNR = Math.floor(Math.random() * 999999)
+        } while (SNR.length === 6);
+        do {
+          W = Math.floor(Math.random() * 9)
+        } while (W.length === 1);
+        imei = TAC.toString() + FAC.toString() + SNR.toString() + W.toString()
+      } while (imei.length !== 15);
+      if (numeroActual.length === 10 && iccidActual.length === 19) {
         contador++;
         listaNumeros.push(numeroActual)
         listaNumeros.push(iccidActual)
+        listaNumeros.push(imei)
       } else {
         k--
       }
@@ -76,17 +140,29 @@ const generarNumeros = (folio, inicialFolio, numerosGenerar) => {
 
 const generarArchivo = (datos, nombre) => {
   var stream = fs.createWriteStream(nombre + ".txt");
-  stream.once('open', function (fd) {
+  stream.once('open', function () {
     for (let index = 0; index < datos.length; index++) {
       if (index % 2 === 0) {
         stream.write(datos[index] + "\t");
-      } else {
+      } else if (index % 2 === 1) {
+        stream.write(datos[index] + "\t");
+      } else if (index % 2 === 2) {
         stream.write(datos[index] + "\n");
       }
     }
     stream.end();
   });
-  console.log("El archivo fue creado correctamente");
+console.log("El archivo fue creado correctamente");
 }
 const folioFinal = generarFolio()
-generarArchivo(generarNumeros(folioFinal, "53", 4), folioFinal)
+
+var rl = readline.createInterface({
+  input: process.stdin,
+  output: process.stdout
+
+});
+
+rl.question("¿Cuántos números desea generar?", function (answer) {
+  generarArchivo(generarNumeros(folioFinal, "89", answer), folioFinal)
+  rl.close();
+});
