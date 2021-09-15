@@ -47,7 +47,7 @@ const generarNumeros = (folio, inicialFolio, numerosGenerar) => {
         contador++;
         listaNumeros.push(numeroActual)
         listaNumeros.push(iccidActual)
-        listaNumeros.push(imei)
+        //listaNumeros.push(imei)
       } else {
         i--
       }
@@ -87,7 +87,7 @@ const generarNumeros = (folio, inicialFolio, numerosGenerar) => {
         contador++;
         listaNumeros.push(numeroActual)
         listaNumeros.push(iccidActual)
-        listaNumeros.push(imei)
+        //listaNumeros.push(imei)
       } else {
         j--
       }
@@ -127,7 +127,7 @@ const generarNumeros = (folio, inicialFolio, numerosGenerar) => {
         contador++;
         listaNumeros.push(numeroActual)
         listaNumeros.push(iccidActual)
-        listaNumeros.push(imei)
+        //listaNumeros.push(imei)
       } else {
         k--
       }
@@ -145,8 +145,6 @@ const generarArchivo = (datos, nombre) => {
       if (index % 2 === 0) {
         stream.write(datos[index] + "\t");
       } else if (index % 2 === 1) {
-        stream.write(datos[index] + "\t");
-      } else if (index % 2 === 2) {
         stream.write(datos[index] + "\n");
       }
     }
