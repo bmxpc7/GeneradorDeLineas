@@ -5,6 +5,10 @@ function myFunction() {
   generarTabla(generarNumeros(region, iccidInicial, numerosGenerar), iccidInicial)
 }
 
+window.onload = function(){
+  document.getElementById("numerosIccid").value = "89520";
+  };
+
 function myFunctionBorrar() {
   document.getElementById("region").value;
   document.getElementById("numerosIccid").value = "";

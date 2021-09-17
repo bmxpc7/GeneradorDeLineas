@@ -8,6 +8,7 @@ const generarFolio = () => {
   let num2 = Math.floor(Math.random() * 99999)
   let rutaAleatoria = Math.floor(Math.random() * 3)
   let letraAleatoria = Math.floor(Math.random() * 26)
+  let ccc = 520
   return ruta[rutaAleatoria] + tipo[rutaAleatoria] + num1 + letra[letraAleatoria] + num2
 }
 
@@ -22,7 +23,7 @@ const generarNumeros = (folio, inicialFolio, numerosGenerar) => {
     for (var i = 0; i < numerosGenerar; i++) {
       ladaAleatoria = Math.floor(Math.random() * 2)
       numeroActual = lada[ladaAleatoria] + Math.floor(Math.random() * 9999999);
-      iccidActual = inicialFolio + Math.floor(Math.random() * 99999999999999999)
+      iccidActual = inicialFolio + Math.floor(Math.random() * 99999999999999)
       let TAC
       let FAC
       let SNR
@@ -62,7 +63,7 @@ const generarNumeros = (folio, inicialFolio, numerosGenerar) => {
     for (var j = 0; j < numerosGenerar; j++) {
       ladaAleatoria = Math.floor(Math.random() * 2)
       numeroActual = lada[ladaAleatoria] + Math.floor(Math.random() * 9999999);
-      iccidActual = inicialFolio + Math.floor(Math.random() * 99999999999999999)
+      iccidActual = inicialFolio + Math.floor(Math.random() * 99999999999999)
       let TAC
       let FAC
       let SNR
@@ -102,7 +103,7 @@ const generarNumeros = (folio, inicialFolio, numerosGenerar) => {
     for (var k = 0; k < numerosGenerar; k++) {
       ladaAleatoria = Math.floor(Math.random() * 3)
       numeroActual = lada[ladaAleatoria] + Math.floor(Math.random() * 9999999)
-      iccidActual = inicialFolio + Math.floor(Math.random() * 99999999999999999)
+      iccidActual = inicialFolio + Math.floor(Math.random() * 99999999999999)
       let TAC
       let FAC
       let SNR
@@ -161,6 +162,6 @@ var rl = readline.createInterface({
 });
 
 rl.question("¿Cuántos números desea generar?", function (answer) {
-  generarArchivo(generarNumeros(folioFinal, "89", answer), folioFinal)
+  generarArchivo(generarNumeros(folioFinal, "89520", answer), folioFinal)
   rl.close();
 });
