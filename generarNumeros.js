@@ -47,7 +47,9 @@ const generarNumeros = (folio, inicialFolio, numerosGenerar) => {
         contador++;
         listaNumeros.push(numeroActual)
         listaNumeros.push(iccidActual)
-        listaNumeros.push(imei)
+        if (folio[3] === "T") {
+          listaNumeros.push(imei)
+        }
       } else {
         i--
       }
@@ -87,7 +89,9 @@ const generarNumeros = (folio, inicialFolio, numerosGenerar) => {
         contador++;
         listaNumeros.push(numeroActual)
         listaNumeros.push(iccidActual)
-        listaNumeros.push(imei)
+        if (folio[3] === "T") {
+          listaNumeros.push(imei)
+        }
       } else {
         j--
       }
@@ -127,7 +131,9 @@ const generarNumeros = (folio, inicialFolio, numerosGenerar) => {
         contador++;
         listaNumeros.push(numeroActual)
         listaNumeros.push(iccidActual)
-        listaNumeros.push(imei)
+        if (folio[3] === "T") {
+          listaNumeros.push(imei)
+        }
       } else {
         k--
       }
@@ -140,7 +146,8 @@ const generarNumeros = (folio, inicialFolio, numerosGenerar) => {
 
 const generarArchivo = (datos, nombre) => {
   var stream = fs.createWriteStream(nombre + ".txt");
-  stream.once('open', function () {
+  if (nombre[3] === "T") {
+    stream.once('open', function () {
     for (let index = 0; index < datos.length; index++) {
       if (index % 2 === 0) {
         stream.write(datos[index] + "\t");
@@ -152,6 +159,19 @@ const generarArchivo = (datos, nombre) => {
     }
     stream.end();
   });
+  }else{
+stream.once('open', function () {
+    for (let index = 0; index < datos.length; index++) {
+      if (index % 2 === 0) {
+        stream.write(datos[index] + "\t");
+      } else if (index % 2 === 1) {
+        stream.write(datos[index] + "\n");
+      }
+    }
+    stream.end();
+  });
+  }
+
 console.log("El archivo fue creado correctamente");
 }
 const folioFinal = generarFolio()
@@ -163,6 +183,6 @@ var rl = readline.createInterface({
 });
 
 rl.question("¿Cuántos números desea generar?", function (answer) {
-  generarArchivo(generarNumeros(folioFinal, "89", answer), folioFinal)
+  generarArchivo(generarNumeros(folioFinal, "89520", answer), folioFinal)
   rl.close();
 });
