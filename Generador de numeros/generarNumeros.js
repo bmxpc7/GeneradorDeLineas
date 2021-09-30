@@ -2,6 +2,7 @@ function myFunction() {
   const region = document.getElementById("region").value;
   const iccidInicial = document.getElementById("numerosIccid").value;
   const numerosGenerar = document.getElementById("numerosGenerar").value;
+  let t = false
   generarTabla(generarNumeros(region, iccidInicial, numerosGenerar), iccidInicial)
 }
 
@@ -33,6 +34,11 @@ function myFunctionBorrar() {
 }
 
 const generarNumeros = (folio, inicialFolio, numerosGenerar) => {
+  if (folio[3] === "T") {
+    t = true
+  }else{
+    t = false
+  }
   let contador = 0;
   let listaNumeros = []
   if (folio[1] === "4") {
@@ -112,6 +118,7 @@ const generarTabla = (datos, inicialIccid) => {
   for (var k = 0; k < datosICCID.length; k++) {
     listaICCID += '<li class="list-group-item">' + datosICCID[k] + '</li>';
   }
+  console.log(t);
   let listaInicioImei = '<ul class="list-group" id="tblImei" style="width: 18rem;">';
   let listaImei = 'IMEI';
   let listaFinImei = '</ul>';
